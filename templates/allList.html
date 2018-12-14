@@ -1,0 +1,33 @@
+
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul>
+	{% for message in messages %}
+	<li><strong>{{message}}</strong></li>
+	{% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
+<!-- Iterate through the list item, display the startup name and it is href -->
+<ul class="list-group">
+{% for i in list %}
+<li class="list-group-item"><a href = '{{url_for('showStartup', startup_id = i.id) }}'>{{i.name}}</a></li>
+</br>
+{% endfor %}
+</ul>
+{% if session['username'] %}
+<h3 class="display-6"> Add New Startup </h3>
+<form method ='POST' enctype='multipart/form-data' action ='{{ url_for('showAllStartup')}}'>
+	<div class="form-group col-6 d-inline-flex p-2">
+		<input type='text' class="form-control" name='name' placeholder='name'/>
+		<button class="btn btn-secondary" type='submit'> Add Startup! </button>
+	</div>
+</form>
+{% endif %}
+
+{% endblock %}

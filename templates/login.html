@@ -1,0 +1,13 @@
+
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+    <form action="{{ url_for('login')}}" enctype='multipart/form-data' method="POST">
+      <div class="form-group col-6 d-inline-flex p-2">
+        <input type='text' class="form-control" name='username' required />
+        <input type='password' class="form-control" name='password' required />
+      </div>
+      <button  class="btn btn-secondary" type="submit"> Log in !</button>
+    </form>
+
+{% endblock %}

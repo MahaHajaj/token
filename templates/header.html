@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="{{url_for('showAllStartup')}}">App</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{{url_for('showAllStartup')}}"> Startups <span class="sr-only">(current)</span></a>
+      </li>
+      {% if session['username'] %}
+      <li class="nav-item">
+         <p class="nav-link">
+           Hello {{session['username']}}!
+         </p>
+      </li>
+      {% endif %}
+      <li class="nav-item">
+        {% if session['username'] %}
+        <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+        {% else %}
+          <a class="nav-link" href="{{url_for('login')}}">Login</a>
+        {% endif %}
+      </li>
+    </ul>
+  </div>
+</nav>

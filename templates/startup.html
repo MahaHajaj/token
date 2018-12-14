@@ -1,0 +1,52 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+<!-- Iterate through the founder list item, display the name and ithe bio -->
+<h2 class="display-6"> Founders Of {{startup.name}}</h2>
+
+<!-- When new founder is added -->
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul>
+	{% for message in messages %}
+	<li><strong>{{message}}</strong></li>
+	{% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+<ul class="list-group">
+{% for i in founder %}
+<li class="list-group-item">
+	<h3> {{i.name}}</h3>
+	<footer class="blockquote-footer">{{i.bio}}</footer>
+	{% if isOwner %}
+	<!-- Edit Form -->
+	<form method ='POST' enctype='multipart/form-data' action ='{{ url_for('editFounder',startup_id=startup.id, founder_id = i.id)}}'>
+		<div class="form-group col-6 d-inline-flex p-2">
+			<input type='text' class="form-control" name='name' placeholder='name'/>
+			<input type='text' class="form-control" name='bio' placeholder='bio'/>
+		</div>
+		<button class="btn btn-secondary"  type='submit'> edit founder! </button>
+	</form>
+	<!-- Delete Form -->
+	<form method ='POST' enctype='multipart/form-data' action ='{{ url_for('deleteFounder',startup_id=startup.id, founder_id = i.id)}}'>
+		<button  class="btn btn-secondary" type='submit'> delete founder! </button>
+	</form>
+	{% endif %}
+</li>
+{% endfor %}
+</ul>
+{% if isOwner %}
+<!-- Add New Founder -->
+<h3> Add New Founder </h3>
+<form method ='POST' enctype='multipart/form-data' action ='{{ url_for('showStartup',startup_id=startup.id)}}'>
+<div class="form-group col-6 d-inline-flex p-2">
+	<input type='text' class="form-control" name='name' placeholder='name'/>
+	<input type='text' class="form-control" name='bio' placeholder='bio'/>
+</div>
+	<button class="btn btn-secondary" type='submit'> add founder! </button>
+</form>
+{% endif %}
+
+{% endblock %}
